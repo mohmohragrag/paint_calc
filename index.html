@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Paint Consumption Calculator</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <h2>Paint Consumption Calculator</h2>
+
+        <!-- Area Input -->
+        <label for="area">Area (m²): طبقا للمشروع</label>
+        <input type="number" id="area" placeholder="Enter area" required>
+
+        <!-- Prime Inputs -->
+        <h3>Primer Coat</h3>
+        <label for="dftPrime">DFT Primer (microns): طبقا لمتطلبات العميل</label>
+        <input type="number" id="dftPrime" placeholder="Enter DFT" required>
+
+        <label for="vsPrime">VS Primer (Volume Solids %): طبقا للداتا شيت</label>
+        <input type="number" id="vsPrime" placeholder="Enter VS" required>
+
+        <label for="lossPrime">Loss Value Primer (fraction): طبقا للتشغيل</label>
+        <input type="number" id="lossPrime" step="0.01" placeholder="Enter Loss (e.g. 0.1 for 10%)" required>
+
+        <label for="paintPricePrime">Paint Price Primer (per Liter):</label>
+        <input type="number" id="paintPricePrime" placeholder="Enter Paint Price" required>
+
+        <label for="thinnerRatioPrime">Thinner Ratio Primer (fraction): طبقا للداتا شيت</label>
+        <input type="number" id="thinnerRatioPrime" step="0.01" placeholder="Enter Thinner Ratio (e.g. 0.1 for 10%)" required>
+
+        <label for="thinnerPricePrime">Thinner Price Primer (per Liter):</label>
+        <input type="number" id="thinnerPricePrime" placeholder="Enter Thinner Price" required>
+
+        <label for="densityPrime">Density Primer (kg/L): طبقا للداتا شيت</label>
+        <input type="number" id="densityPrime" placeholder="Enter density" required>
+
+        <!-- Finish Inputs -->
+        <h3>Finish Coat</h3>
+        <label for="dftFinish">DFT Finish (microns): طبقا لمتطلبات العميل</label>
+        <input type="number" id="dftFinish" placeholder="Enter DFT" required>
+
+        <label for="vsFinish">VS Finish (Volume Solids %): طبقا للداتا شيت</label>
+        <input type="number" id="vsFinish" placeholder="Enter VS" required>
+
+        <label for="lossFinish">Loss Value Finish (fraction): طبقا للتشغيل</label>
+        <input type="number" id="lossFinish" step="0.01" placeholder="Enter Loss (e.g. 0.1 for 10%)" required>
+
+        <label for="paintPriceFinish">Paint Price Finish (per Liter):</label>
+        <input type="number" id="paintPriceFinish" placeholder="Enter Paint Price" required>
+
+        <label for="thinnerRatioFinish">Thinner Ratio Finish (fraction): طبقا للداتا شيت</label>
+        <input type="number" id="thinnerRatioFinish" step="0.01" placeholder="Enter Thinner Ratio (e.g. 0.1 for 10%)" required>
+
+        <label for="thinnerPriceFinish">Thinner Price Finish (per Liter):</label>
+        <input type="number" id="thinnerPriceFinish" placeholder="Enter Thinner Price" required>
+
+        <label for="densityFinish">Density Finish (kg/L): طبقا للداتا شيت</label>
+        <input type="number" id="densityFinish" placeholder="Enter density" required>
+
+        <!-- Common Inputs -->
+        <label for="bucketSize">Bucket Size (Liters): طبقا للشركه المصنعه</label>
+        <select id="bucketSize">
+            <option value="20">20 Liters</option>
+            <option value="25">25 Liters</option>
+        </select>
+
+        <button onclick="calculatePaint()">Calculate</button>
+
+        <!-- Results for Prime -->
+        <h3>Primer Coat Results</h3>
+        <p>Required Paint (Primer): <span id="resultPrime">0</span> Liters</p>
+        <p>Required Paint (Primer +10%): <span id="resultPrimePlus10">0</span> Liters</p>
+        <p>Required Paint (Primer): <span id="resultPrimeKelo">0</span> kg</p>
+        <p>Required Thinner (Primer): <span id="thinnerPrime">0</span> Liters</p>
+        <p>Total Paint Cost (Primer): <span id="totalPaintCostPrime">0</span></p>
+        <p>Total Thinner Cost (Primer): <span id="totalThinnerCostPrime">0</span></p>
+        <p>Total Cost (Primer): <span id="totalCostPrime">0</span></p>
+
+        <!-- Results for Finish -->
+        <h3>Finish Coat Results</h3>
+        <p>Required Paint (Finish): <span id="resultFinish">0</span> Liters</p>
+        <p>Required Paint (Finish +10%): <span id="resultFinishPlus10">0</span> Liters</p>
+        <p>Required Paint (Finish): <span id="resultFinishKelo">0</span> kg</p>
+        <p>Required Thinner (Finish): <span id="thinnerFinish">0</span> Liters</p>
+        <p>Total Paint Cost (Finish): <span id="totalPaintCostFinish">0</span></p>
+        <p>Total Thinner Cost (Finish): <span id="totalThinnerCostFinish">0</span></p>
+        <p>Total Cost (Finish): <span id="totalCostFinish">0</span></p>
+
+        <!-- Total Results -->
+        <h3>Total Results</h3>
+        <p>Total Required Paint: <span id="resultTotal">0</span> Liters</p>
+        <p>Total Required Paint (+10%): <span id="resultTotalPlus10">0</span> Liters</p>
+        <p>Total Required Paint: <span id="resultTotalKelo">0</span> kg</p>
+        <p>Buckets Needed: <span id="buckets">0</span></p>
+        <p>Buckets Needed (+10%): <span id="bucketsPlus10">0</span></p>
+        <p>Total Required Thinner: <span id="thinnerTotal">0</span> Liters</p>
+        <p>Total Paint Cost: <span id="totalPaintCost">0</span></p>
+        <p>Total Thinner Cost: <span id="totalThinnerCost">0</span></p>
+        <p>Total Cost: <span id="totalCost">0</span></p>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
